@@ -12,8 +12,7 @@ def main():
     # Get Locations
     res = s.get("https://graph.api.smartthings.com/location/list")
     res.raise_for_status()
-    location_page = bs4.BeautifulSoup(res.text, "html.parser")
-    location_rows = location_page.find('tbody').findAll('tr')
+    location_rows = bs4.BeautifulSoup(res.text, "html.parser").find('tbody').findAll('tr')
     location_dict = {}
     for row in location_rows:
         location_link = row.find('a')
@@ -54,7 +53,6 @@ def main():
         except ValueError:
             data_value = item.find('strong').contents[0].split(" ")[0]
         print(data_type, "=", data_value)
-
     return
 
 
@@ -88,5 +86,4 @@ def login():
 if __name__ == '__main__':
     main()
     input("\nPress Enter To Quit...")
-
-sys.exit()
+    sys.exit()
